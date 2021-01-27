@@ -17,6 +17,7 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
+      arg(:search, :string)
       resolve(&UsersResolver.users/3)
     end
 

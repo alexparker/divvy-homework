@@ -28,6 +28,12 @@ defmodule Homework.UsersTest do
       assert Users.list_users([]) == [user]
     end
 
+    test "list_users/1 returns basic substring filtered users" do
+      user = user_fixture(%{first_name: "Robert", last_name: "Mendez"})
+      _other_user = user_fixture(%{first_name: "alexander", last_name: "spud"})
+      assert Users.list_users(%{search: "rob"}) == [user]
+    end
+
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
       assert Users.get_user!(user.id) == user

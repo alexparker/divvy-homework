@@ -17,6 +17,19 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
+  def list_users(%{search: search_query}) do
+    wildcard = "%#{search_query}%"
+
+    query =
+      from(
+        u in User,
+        where: ilike(u.first_name, ^wildcard),
+        or_where: ilike(u.last_name, ^wildcard)
+      )
+
+    Repo.all(query)
+  end
+
   def list_users(_args) do
     Repo.all(User)
   end
