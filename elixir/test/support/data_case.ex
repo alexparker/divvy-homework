@@ -25,6 +25,7 @@ defmodule Homework.DataCase do
       import Ecto.Query
       import Homework.DataCase
       import Homework.Factory
+      use Assertions.AbsintheCase, async: true, schema: HomeworkWeb.Schema
     end
   end
 
