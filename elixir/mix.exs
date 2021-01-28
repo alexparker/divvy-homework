@@ -36,6 +36,7 @@ defmodule Homework.MixProject do
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
       {:ecto_sql, "~> 3.4"},
+      {:ex_machina, "~> 2.5", only: :test},
       {:faker, "~> 0.16", only: [:dev, :test]},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
