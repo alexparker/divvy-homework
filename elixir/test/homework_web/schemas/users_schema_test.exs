@@ -7,10 +7,7 @@ defmodule Homework.UsersSchemaTest do
 
   describe "users" do
     test "lists users" do
-      [%{first_name: first, last_name: last, dob: dob, company: company} | _tail] =
-        insert_list(3, :user)
-
-      %{name: name, credit_line: credit_line} = company
+      factory_users = insert_list(3, :user)
 
       """
       query {
@@ -24,21 +21,23 @@ defmodule Homework.UsersSchemaTest do
           "users" =>
             [
               %{
-                "dob" => ^dob,
-                "firstName" => ^first,
-                "lastName" => ^last,
+                "dob" => _dob,
+                "firstName" => _first,
+                "lastName" => _last,
                 "company" => %{
-                  "name" => ^name,
-                  "creditLine" => ^credit_line,
-                  "availableCredit" => ^credit_line
+                  "name" => _name,
+                  "creditLine" => _credit_line,
+                  "availableCredit" => _available_credit
                 }
               }
               | _tail
-            ] = users
+            ] = response_users
         }
       end
 
-      assert length(users) == 3
+      assert_lists_equal(factory_users, response_users, &(&1.id == &2["id"]))
+
+      assert length(response_users) == 3
     end
   end
 

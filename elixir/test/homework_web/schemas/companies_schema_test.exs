@@ -42,8 +42,11 @@ defmodule Homework.CompaniesSchemaTest do
 
   describe "companies" do
     test "list all companies" do
-      [%{name: name, credit_line: credit_line} = company | _tail] = insert_list(3, :company)
-      insert(:transaction, amount: 300, debit: true, credit: false, company: company)
+      [%{name: name, credit_line: credit_line} = company | _tail] =
+        insert_list(3, :company)
+
+      _transaction =
+        insert(:transaction, amount: 300, debit: true, credit: false, company: company)
       available_credit = credit_line - 300
 
       """

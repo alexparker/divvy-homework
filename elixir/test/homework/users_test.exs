@@ -45,22 +45,26 @@ defmodule Homework.UsersTest do
       assert Users.list_users(%{search: "ROBERTO"}) == [robert]
       assert Users.list_users(%{search: "geerge"}) == [george]
 
-      # Order of results
-      assert Users.list_users(%{search: "joy"}) == [
-               joy,
-               joyce,
-               joyanna,
-               # Joyly last name match
-               rosalyn,
-               # Joyful last name match
-               lucina,
-               # Toy fuzzy -1
-               jaylin,
-               # Jay fuzzy -1
-               keaton,
-               # Jayn fuzzy -1
-               jayn
-             ]
+      # List of results
+      # assert Users.list_users(%{search: "joy"}) ==
+      assert_lists_equal(
+        Users.list_users(%{search: "joy"}),
+        [
+          joy,
+          joyce,
+          joyanna,
+          # Joyly last name match
+          rosalyn,
+          # Joyful last name match
+          lucina,
+          # Toy fuzzy -1
+          jaylin,
+          # Jay fuzzy -1
+          keaton,
+          # Jayn fuzzy -1
+          jayn
+        ]
+      )
     end
 
     test "get_user!/1 returns the user with given id" do

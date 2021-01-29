@@ -44,8 +44,7 @@ defmodule Homework.Factory do
       credit: is_credit,
       debit: !is_credit,
       description: Faker.Lorem.sentence(),
-      merchant: build(:merchant),
-      company: build(:company)
+      merchant: build(:merchant)
     }
   end
 end
