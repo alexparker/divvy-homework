@@ -40,7 +40,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       resolve(&TransactionsResolver.create_transaction/3)
     end
 
-    @desc "Update a new transaction"
+    @desc "Update a transaction"
     field :update_transaction, :transaction do
       arg(:id, non_null(:id))
       arg(:user_id, non_null(:id))

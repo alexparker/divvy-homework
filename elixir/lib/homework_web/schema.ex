@@ -27,6 +27,11 @@ defmodule HomeworkWeb.Schema do
       resolve(&MerchantsResolver.merchants/3)
     end
 
+    @desc "Get all Companies"
+    field(:companies, list_of(:company)) do
+      resolve(&CompaniesResolver.companies/3)
+    end
+
     @desc "Get a Company"
     field(:company, :company) do
       arg(:id, non_null(:id))
@@ -38,5 +43,6 @@ defmodule HomeworkWeb.Schema do
     import_fields(:transaction_mutations)
     import_fields(:user_mutations)
     import_fields(:merchant_mutations)
+    import_fields(:company_mutations)
   end
 end

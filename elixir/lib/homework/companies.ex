@@ -7,7 +7,6 @@ defmodule Homework.Companies do
   alias Homework.Repo
 
   alias Homework.Companies.Company
-  alias Homework.Transactions.Transaction
 
   @doc """
   Gets a single company.
@@ -36,7 +35,7 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_companies(args \\ []) do
+  def list_companies(_args \\ %{}) do
     Repo.all(Company)
   end
 

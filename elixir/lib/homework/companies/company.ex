@@ -6,7 +6,7 @@ defmodule Homework.Companies.Company do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "companies" do
-    field(:credit_line, :integer)
+    field(:credit_line, :integer, default: 0)
     field(:name, :string)
 
     has_many(:transactions, Transaction, foreign_key: :company_id)

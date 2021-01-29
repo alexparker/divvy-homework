@@ -25,7 +25,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
       resolve(&UsersResolver.create_user/3)
     end
 
-    @desc "Update a new user"
+    @desc "Update a user"
     field :update_user, :user do
       arg(:id, non_null(:id))
       arg(:dob, non_null(:string))
