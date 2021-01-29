@@ -8,7 +8,8 @@ defmodule Homework.Factory do
     %Homework.Users.User{
       first_name: Faker.Person.first_name(),
       last_name: Faker.Person.last_name(),
-      dob: "#{Faker.Date.date_of_birth(18..98)}"
+      dob: "#{Faker.Date.date_of_birth(18..98)}",
+      company: build(:company)
     }
   end
 

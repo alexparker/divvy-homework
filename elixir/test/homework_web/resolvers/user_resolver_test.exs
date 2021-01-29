@@ -34,7 +34,7 @@ defmodule HomeworkWeb.UsersResolverTest do
       {:ok, result} = UsersResolver.users(%{}, [], [])
 
       assert length(result) == 4
-      assert result == users
+      assert_lists_equal(result, users, &(&1.id == &2.id))
     end
   end
 
@@ -62,7 +62,14 @@ defmodule HomeworkWeb.UsersResolverTest do
   describe "delete_user/3" do
     test "deletes a user by id", %{users: [user | tail]} do
       {:ok, _deleted_user} = UsersResolver.delete_user(nil, %{id: user.id}, nil)
-      assert tail == Homework.Users.list_users([])
+      assert_lists_equal(tail, Homework.Users.list_users([]), &(&1.id == &2.id))
+    end
+  end
+
+  describe "get_company/3" do
+    test "gets comapny of a user by id", %{users: [user | _tail]} do
+      {:ok, %Homework.Companies.Company{} = company} = UsersResolver.get_company(user, %{}, nil)
+      assert company.id == user.company_id
     end
   end
 end

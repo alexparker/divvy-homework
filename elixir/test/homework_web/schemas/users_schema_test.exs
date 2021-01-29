@@ -7,7 +7,10 @@ defmodule Homework.UsersSchemaTest do
 
   describe "users" do
     test "lists users" do
-      [%{first_name: first, last_name: last, dob: dob} | _tail] = insert_list(3, :user)
+      [%{first_name: first, last_name: last, dob: dob, company: company} | _tail] =
+        insert_list(3, :user)
+
+      %{name: name, credit_line: credit_line} = company
 
       """
       query {
@@ -23,7 +26,12 @@ defmodule Homework.UsersSchemaTest do
               %{
                 "dob" => ^dob,
                 "firstName" => ^first,
-                "lastName" => ^last
+                "lastName" => ^last,
+                "company" => %{
+                  "name" => ^name,
+                  "creditLine" => ^credit_line,
+                  "availableCredit" => ^credit_line
+                }
               }
               | _tail
             ] = users
