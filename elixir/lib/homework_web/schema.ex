@@ -7,6 +7,7 @@ defmodule HomeworkWeb.Schema do
   alias HomeworkWeb.Resolvers.MerchantsResolver
   alias HomeworkWeb.Resolvers.TransactionsResolver
   alias HomeworkWeb.Resolvers.UsersResolver
+  alias HomeworkWeb.Resolvers.CompaniesResolver
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
@@ -24,6 +25,12 @@ defmodule HomeworkWeb.Schema do
     @desc "Get all Merchants"
     field(:merchants, list_of(:merchant)) do
       resolve(&MerchantsResolver.merchants/3)
+    end
+
+    @desc "Get a Company"
+    field(:company, :company) do
+      arg(:id, non_null(:id))
+      resolve(&CompaniesResolver.find_company/3)
     end
   end
 
