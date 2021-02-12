@@ -101,4 +101,23 @@ defmodule Homework.Transactions do
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
   end
+
+  @doc """
+  Get sum of transactions by company and type
+  """
+  def sum_for_company(company_id, type) do
+    query =
+      from(t in Transaction,
+        where: t.company_id == ^company_id
+      )
+
+    case type do
+      :debit ->
+        from(t in query, where: t.debit == true)
+
+      :credit ->
+        from(t in query, where: t.credit == true)
+    end
+    |> Repo.aggregate(:sum, :amount)
+  end
 end

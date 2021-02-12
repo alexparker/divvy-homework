@@ -28,6 +28,45 @@ defmodule Homework.UsersTest do
       assert Users.list_users([]) == [user]
     end
 
+    test "list_users/1 returns basic substring filtered users" do
+      joy = user_fixture(%{first_name: "Joy", last_name: "Mendez"})
+      joyanna = user_fixture(%{first_name: "Joyanna", last_name: "Rohan"})
+      joyce = user_fixture(%{first_name: "Joyce", last_name: "Torphy"})
+      rosalyn = user_fixture(%{first_name: "Rosalyn", last_name: "Joyly"})
+      lucina = user_fixture(%{first_name: "Lucina", last_name: "Joyful"})
+      jaylin = user_fixture(%{first_name: "Jaylin", last_name: "Toy"})
+      keaton = user_fixture(%{first_name: "Keaton", last_name: "Jay"})
+      jayn = user_fixture(%{first_name: "Jayn", last_name: "Jaymie"})
+
+      george = user_fixture(%{first_name: "George", last_name: "Grand"})
+      robert = user_fixture(%{first_name: "Robert", last_name: "Mendosa"})
+
+      # Basic fuzzy match
+      assert Users.list_users(%{search: "ROBERTO"}) == [robert]
+      assert Users.list_users(%{search: "geerge"}) == [george]
+
+      # List of results
+      # assert Users.list_users(%{search: "joy"}) ==
+      assert_lists_equal(
+        Users.list_users(%{search: "joy"}),
+        [
+          joy,
+          joyce,
+          joyanna,
+          # Joyly last name match
+          rosalyn,
+          # Joyful last name match
+          lucina,
+          # Toy fuzzy -1
+          jaylin,
+          # Jay fuzzy -1
+          keaton,
+          # Jayn fuzzy -1
+          jayn
+        ]
+      )
+    end
+
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
       assert Users.get_user!(user.id) == user

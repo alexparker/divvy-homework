@@ -13,6 +13,10 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
     field(:last_name, :string)
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
+
+    field(:company, :company) do
+      resolve(&UsersResolver.get_company/3)
+    end
   end
 
   object :user_mutations do
@@ -25,7 +29,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
       resolve(&UsersResolver.create_user/3)
     end
 
-    @desc "Update a new user"
+    @desc "Update a user"
     field :update_user, :user do
       arg(:id, non_null(:id))
       arg(:dob, non_null(:string))
